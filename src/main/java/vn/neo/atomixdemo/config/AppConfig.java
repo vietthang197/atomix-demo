@@ -39,6 +39,7 @@ public class AppConfig {
         AtomixBuilder builder = Atomix.builder();
         return builder
                 .withClusterId(clusterConfig.getClusterId())
+                .withMemberId(clusterConfig.getNodeId())
                 .withHost(clusterConfig.getHost())
                 .withPort(clusterConfig.getPort())
                 .withMembershipProvider(

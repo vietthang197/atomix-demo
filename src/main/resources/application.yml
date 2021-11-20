@@ -6,14 +6,14 @@ app:
     cluster-name: atomix-demo-app
     timeout: 1000
     host: localhost
-    port: 9898
+    port: 5000
     check-interval: 200
     members:
     - node-id: atomix-node-1
       host: localhost
-      port: 5000
+      port: 5001
     - node-id: atomix-node-2
       host: localhost
-      port: 5001
-    node-id: clusters_01
+      port: 5002
+    node-id: atomix-node-1
     profiles: CONSENSUS,DATA_GRID,CLIENT
