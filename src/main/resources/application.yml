@@ -1,0 +1,19 @@
+server:
+  port: 9123
+app:
+  clusters:
+    cluster-id: cluster1
+    cluster-name: atomix-demo-app
+    timeout: 1000
+    host: localhost
+    port: 9898
+    check-interval: 200
+    members:
+    - node-id: atomix-node-1
+      host: localhost
+      port: 5000
+    - node-id: atomix-node-2
+      host: localhost
+      port: 5001
+    node-id: clusters_01
+    profiles: CONSENSUS,DATA_GRID,CLIENT
