@@ -1,11 +1,11 @@
 package vn.neo.atomixdemo.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.atomix.cluster.Node;
 import io.atomix.cluster.discovery.BootstrapDiscoveryProvider;
 import io.atomix.core.Atomix;
 import io.atomix.core.AtomixBuilder;
+import io.atomix.core.profile.Profile;
 import io.atomix.utils.net.Address;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +37,7 @@ public class AppConfig {
             );
         });
         AtomixBuilder builder = Atomix.builder();
-        return builder
+        Atomix atomix = builder
                 .withClusterId(clusterConfig.getClusterId())
                 .withMemberId(clusterConfig.getNodeId())
                 .withHost(clusterConfig.getHost())
@@ -46,6 +46,10 @@ public class AppConfig {
                         BootstrapDiscoveryProvider.builder()
                                 .withNodes(members)
                                 .build()
-                ).build();
+                )
+                .withProfiles(Profile.dataGrid(), Profile.consensus("atomix-node-1", "atomix-node-2", "atomix-node-3"))
+                .build();
+        atomix.start().join();
+        return atomix;
     }
 }
