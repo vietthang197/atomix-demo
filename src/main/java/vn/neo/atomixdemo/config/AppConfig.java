@@ -1,6 +1,8 @@
 package vn.neo.atomixdemo.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.atomix.cluster.AtomixCluster;
+import io.atomix.cluster.AtomixClusterBuilder;
 import io.atomix.cluster.Node;
 import io.atomix.cluster.discovery.BootstrapDiscoveryProvider;
 import io.atomix.core.Atomix;
@@ -27,7 +29,7 @@ public class AppConfig {
     }
 
     @Bean
-    public Atomix atomix() throws JsonProcessingException {
+    public AtomixCluster atomix() throws JsonProcessingException {
         List<Node> members = new ArrayList<>();
         clusterConfig.getMembers().forEach(item -> {
             members.add(Node.builder()
@@ -36,8 +38,8 @@ public class AppConfig {
                     .build()
             );
         });
-        AtomixBuilder builder = Atomix.builder();
-        Atomix atomix = builder
+        AtomixClusterBuilder builder = AtomixCluster.builder();
+        AtomixCluster atomix = builder
                 .withClusterId(clusterConfig.getClusterId())
                 .withMemberId(clusterConfig.getNodeId())
                 .withHost(clusterConfig.getHost())
@@ -47,7 +49,6 @@ public class AppConfig {
                                 .withNodes(members)
                                 .build()
                 )
-                .withProfiles(Profile.dataGrid(), Profile.consensus("atomix-node-1", "atomix-node-2", "atomix-node-3"))
                 .build();
         atomix.start().join();
         return atomix;
