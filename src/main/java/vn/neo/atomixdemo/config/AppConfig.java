@@ -22,7 +22,7 @@ public class AppConfig {
     }
 
     @Bean
-    public RaftGroupService test() throws InterruptedException {
+    public RaftGroupService raftGroupService() throws InterruptedException {
         PeerId serverId = new PeerId();
         serverId.parse("localhost:6788");
         RpcServer rpcServer = new RpcServer(serverId.getPort());
