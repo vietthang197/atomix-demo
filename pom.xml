@@ -63,6 +63,25 @@
             <artifactId>atomix-gossip</artifactId>
             <version>3.1.10</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.atomix/atomix-agent -->
+        <dependency>
+            <groupId>io.atomix</groupId>
+            <artifactId>atomix-agent</artifactId>
+            <version>3.1.10</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.atomix/atomix-cluster -->
+        <dependency>
+            <groupId>io.atomix</groupId>
+            <artifactId>atomix-cluster</artifactId>
+            <version>3.1.10</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.atomix/atomix-storage -->
+        <dependency>
+            <groupId>io.atomix</groupId>
+            <artifactId>atomix-storage</artifactId>
+            <version>3.1.10</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
