@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:hz="http://www.hazelcast.com/schema/spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                http://www.hazelcast.com/schema/spring
+                http://www.hazelcast.com/schema/spring/hazelcast-spring.xsd">
+
+<!--    <bean id="instance2" class="com.hazelcast.core.Hazelcast" factory-method="newHazelcastInstance">-->
+<!--        <constructor-arg>-->
+<!--            <bean class="com.hazelcast.config.Config">-->
+<!--                <property name="clusterName" value="dev"/>-->
+<!--            </bean>-->
+<!--        </constructor-arg>-->
+<!--    </bean>-->
+
+    <bean id="map" factory-bean="hazelCastInstance" factory-method="getMap">
+        <constructor-arg value="map"/>
+    </bean>
+
+    <hz:hazelcast id="hazelCastInstance">
+        <hz:config>
+            <hz:cluster-name>dev</hz:cluster-name>
+            <hz:cp-subsystem>
+                <hz:cp-member-count>3</hz:cp-member-count>
+            </hz:cp-subsystem>
+            <hz:network port="5702" port-auto-increment="false">
+                <hz:join>
+                    <hz:multicast enabled="false"
+                                  multicast-group="224.2.2.3"
+                                  multicast-port="54327"/>
+                    <hz:tcp-ip enabled="true">
+                        <hz:members>localhost:5701, localhost:5703</hz:members>
+                    </hz:tcp-ip>
+                </hz:join>
+            </hz:network>
+            <hz:map name="map"
+                    backup-count="2"
+                    read-backup-data="true">
+                <hz:eviction eviction-policy="NONE" size="0"/>
+            </hz:map>
+        </hz:config>
+    </hz:hazelcast>
+</beans>

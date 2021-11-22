@@ -1,8 +1,8 @@
 package vn.neo.atomixdemo.controller;
 
-import com.alipay.sofa.jraft.RaftGroupService;
-import com.alipay.sofa.jraft.entity.PeerId;
+import com.hazelcast.core.HazelcastInstance;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,10 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController {
 
     @Autowired
-    private RaftGroupService raftGroupService;
+    @Qualifier("hazelCastInstance")
+    private HazelcastInstance hazelcast;
 
-    @GetMapping("/")
-    public PeerId test() {
-        return raftGroupService.getRaftNode().getLeaderId();
+    @GetMapping
+    public String test() {
+        System.out.println(hazelcast.getCPSubsystem());;
+        System.out.println(hazelcast.getCPSubsystem().getCPSubsystemManagementService());;
+        System.out.println(hazelcast.getCPSubsystem().getCPSessionManagementService());;
+        return "OK";
     }
 }
