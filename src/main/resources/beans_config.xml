@@ -51,13 +51,13 @@
             <hz:properties>
                 <hz:property name="hazelcast.initial.min.cluster.size">1</hz:property>
             </hz:properties>
-<!--            <hz:cp-subsystem>-->
-<!--                <hz:cp-member-count>5</hz:cp-member-count>-->
-<!--                <hz:session-time-to-live-seconds>300</hz:session-time-to-live-seconds>-->
-<!--                <hz:session-heartbeat-interval-seconds>5</hz:session-heartbeat-interval-seconds>-->
-<!--                <hz:missing-cp-member-auto-removal-seconds>14400</hz:missing-cp-member-auto-removal-seconds>-->
-<!--                <hz:fail-on-indeterminate-operation-state>false</hz:fail-on-indeterminate-operation-state>-->
-<!--            </hz:cp-subsystem>-->
+            <hz:cp-subsystem>
+                <hz:cp-member-count>3</hz:cp-member-count>
+                <hz:session-time-to-live-seconds>300</hz:session-time-to-live-seconds>
+                <hz:session-heartbeat-interval-seconds>5</hz:session-heartbeat-interval-seconds>
+                <hz:missing-cp-member-auto-removal-seconds>14400</hz:missing-cp-member-auto-removal-seconds>
+                <hz:fail-on-indeterminate-operation-state>true</hz:fail-on-indeterminate-operation-state>
+            </hz:cp-subsystem>
             <hz:network port="5702" port-auto-increment="false">
                 <hz:join>
                     <hz:multicast enabled="false"

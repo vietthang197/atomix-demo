@@ -24,6 +24,8 @@ public class HomeController {
     public boolean test() {
         Member oldestMember = hazelcast.getCluster()
                 .getMembers().iterator().next();
+
+        hazelcast.getMap("abc").forEach((k, v) -> System.out.println(k +" - " + v));
         return oldestMember.localMember();
     }
 }
