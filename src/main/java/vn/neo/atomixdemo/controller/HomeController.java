@@ -1,5 +1,6 @@
 package vn.neo.atomixdemo.controller;
 
+import com.hazelcast.cluster.Member;
 import com.hazelcast.core.HazelcastInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,10 +21,9 @@ public class HomeController {
     private HazelcastInstance hazelcast;
 
     @GetMapping
-    public String test() {
-        System.out.println(hazelcast.getCPSubsystem());;
-        System.out.println(hazelcast.getCPSubsystem().getCPSubsystemManagementService());;
-        System.out.println(hazelcast.getCPSubsystem().getCPSessionManagementService());;
-        return "OK";
+    public boolean test() {
+        Member oldestMember = hazelcast.getCluster()
+                .getMembers().iterator().next();
+        return oldestMember.localMember();
     }
 }

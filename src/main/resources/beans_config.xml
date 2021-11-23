@@ -7,24 +7,57 @@
                 http://www.hazelcast.com/schema/spring
                 http://www.hazelcast.com/schema/spring/hazelcast-spring.xsd">
 
-<!--    <bean id="instance2" class="com.hazelcast.core.Hazelcast" factory-method="newHazelcastInstance">-->
+<!--    <bean id="hazelCastInstance" class="com.hazelcast.core.Hazelcast" factory-method="newHazelcastInstance">-->
 <!--        <constructor-arg>-->
 <!--            <bean class="com.hazelcast.config.Config">-->
 <!--                <property name="clusterName" value="dev"/>-->
+<!--                <property name="CPSubsystemConfig" ref="cpSubsystemConfig"/>-->
+<!--                <property name="networkConfig" ref="netWorkConfig"/>-->
+<!--                <property name="properties" ref="hazelcastProperties"/>-->
 <!--            </bean>-->
 <!--        </constructor-arg>-->
 <!--    </bean>-->
 
-    <bean id="map" factory-bean="hazelCastInstance" factory-method="getMap">
-        <constructor-arg value="map"/>
-    </bean>
+<!--    <bean id="cpSubsystemConfig" class="com.hazelcast.config.cp.CPSubsystemConfig">-->
+<!--        <property name="CPMemberCount" value="5"/>-->
+<!--        <property name="sessionTimeToLiveSeconds" value="300"/>-->
+<!--        <property name="sessionHeartbeatIntervalSeconds" value="5"/>-->
+<!--        <property name="missingCPMemberAutoRemovalSeconds" value="14400"/>-->
+<!--        <property name="failOnIndeterminateOperationState" value="false"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="netWorkConfig" class="com.hazelcast.config.NetworkConfig">-->
+<!--        <property name="port" value="5702"/>-->
+<!--        <property name="portAutoIncrement" value="false"/>-->
+<!--        <property name="join" ref="joinConfig"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="joinConfig" class="com.hazelcast.config.JoinConfig">-->
+<!--        <property name="tcpIpConfig" ref="tcpIpConfig"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="tcpIpConfig" class="com.hazelcast.config.TcpIpConfig">-->
+<!--        <property name="enabled" value="true"/>-->
+<!--        <property name="members" value="localhost:5701, localhost:5703"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="map" factory-bean="hazelCastInstance" factory-method="getMap">-->
+<!--        <constructor-arg value="map"/>-->
+<!--    </bean>-->
 
     <hz:hazelcast id="hazelCastInstance">
         <hz:config>
             <hz:cluster-name>dev</hz:cluster-name>
-            <hz:cp-subsystem>
-                <hz:cp-member-count>3</hz:cp-member-count>
-            </hz:cp-subsystem>
+            <hz:properties>
+                <hz:property name="hazelcast.initial.min.cluster.size">1</hz:property>
+            </hz:properties>
+<!--            <hz:cp-subsystem>-->
+<!--                <hz:cp-member-count>5</hz:cp-member-count>-->
+<!--                <hz:session-time-to-live-seconds>300</hz:session-time-to-live-seconds>-->
+<!--                <hz:session-heartbeat-interval-seconds>5</hz:session-heartbeat-interval-seconds>-->
+<!--                <hz:missing-cp-member-auto-removal-seconds>14400</hz:missing-cp-member-auto-removal-seconds>-->
+<!--                <hz:fail-on-indeterminate-operation-state>false</hz:fail-on-indeterminate-operation-state>-->
+<!--            </hz:cp-subsystem>-->
             <hz:network port="5702" port-auto-increment="false">
                 <hz:join>
                     <hz:multicast enabled="false"
